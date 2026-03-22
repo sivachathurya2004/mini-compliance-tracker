@@ -10,7 +10,9 @@ const taskRoutes = require('./routes/tasks');
 
 app.use('/clients', clientRoutes);
 app.use('/tasks', taskRoutes);
-
+app.get('/', (req, res) => {
+    res.send("Mini Compliance Tracker API is running 🚀");
+});
 app.listen(5000, () => {
     console.log('Server running on http://localhost:5000');
 });
