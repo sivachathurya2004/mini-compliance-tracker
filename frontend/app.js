@@ -1,7 +1,9 @@
 let selectedClient = null;
 
+const BASE_URL = "https://mini-compliance-tracker.onrender.com";
+
 async function loadClients() {
-    const res = await fetch('http://localhost:5000/clients');
+    const res = await fetch(`${BASE_URL}/clients`);
     const clients = await res.json();
 
     const ul = document.getElementById('clients');
@@ -10,7 +12,9 @@ async function loadClients() {
     clients.forEach(c => {
         const li = document.createElement('li');
         li.className = "list-group-item";
-        li.innerText = c.company_name;
+
+        // ✅ FIXED FIELD NAME
+        li.innerText = c.name;
 
         li.onclick = () => {
             selectedClient = c.id;
@@ -24,10 +28,11 @@ async function loadClients() {
         ul.appendChild(li);
     });
 }
+
 async function loadTasks() {
     if (!selectedClient) return;
 
-    const res = await fetch(`http://localhost:5000/tasks/${selectedClient}`);
+    const res = await fetch(`${BASE_URL}/tasks/${selectedClient}`);
     let tasks = await res.json();
 
     const filter = document.getElementById('statusFilter').value;
@@ -36,10 +41,9 @@ async function loadTasks() {
         tasks = tasks.filter(t => t.status === filter);
     }
 
-    const ul = document.getElementById('tasks'); // ✅ IMPORTANT FIX
+    const ul = document.getElementById('tasks');
     ul.innerHTML = '';
 
-    // ✅ EMPTY STATE
     if (tasks.length === 0) {
         ul.innerHTML = "<li class='list-group-item text-muted text-center'>No tasks yet</li>";
         return;
@@ -78,7 +82,7 @@ async function loadTasks() {
             btn.onclick = async (e) => {
                 e.stopPropagation();
 
-                await fetch(`http://localhost:5000/tasks/${t.id}`, {
+                await fetch(`${BASE_URL}/tasks/${t.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: 'Completed' })
@@ -112,7 +116,7 @@ async function addTask() {
         return;
     }
 
-    await fetch('http://localhost:5000/tasks', {
+    await fetch(`${BASE_URL}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -125,12 +129,10 @@ async function addTask() {
         })
     });
 
-    // clear inputs
     document.getElementById('title').value = '';
     document.getElementById('category').value = '';
     document.getElementById('due_date').value = '';
 
-    
     alert("Task added successfully!");
     loadTasks();
 }
