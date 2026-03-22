@@ -61,10 +61,10 @@ async function loadTasks() {
         }
 
         const leftDiv = document.createElement('div');
-        leftDiv.innerHTML = `
-            <strong>${t.title}</strong><br>
-            <small>${t.category || ""}</small>
-        `;
+leftDiv.innerHTML = `
+    <strong>${t.task_name}</strong><br>
+    <small>${t.category || ""}</small>
+`;
 
         const rightDiv = document.createElement('div');
 
