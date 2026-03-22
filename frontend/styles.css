@@ -1,0 +1,57 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #e3f2fd);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-weight: bold;
+    color: #0d6efd;
+    letter-spacing: 1px;
+}
+
+/* Client hover */
+#clients li:hover {
+    background: #0d6efd;
+    color: white;
+    cursor: pointer;
+}
+
+/* Active client */
+#clients li.active {
+    background: #198754;
+    color: white;
+}
+
+/* Task hover */
+#tasks li:hover {
+    background: #e7f1ff;
+    cursor: pointer;
+}
+
+/* Overdue tasks */
+.overdue {
+    background-color: #f8d7da !important;
+    color: #842029;
+    font-weight: bold;
+}
+
+/* Smooth UI */
+.card {
+    border-radius: 12px;
+}
+
+button {
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
